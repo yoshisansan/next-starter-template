@@ -1,0 +1,66 @@
+{
+  "extends": [
+    "airbnb",
+    "next/core-web-vitals",
+    "plugin:import/recommended",
+    "plugin:import/warnings",
+    "prettier"
+  ],
+  "plugins": ["strict-dependencies", "unused-imports"],
+  "globals": {
+    "JSX": "readonly"
+  },
+  "rules": {
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "react/require-default-props": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-filename-extension": "off",
+    "consistent-return": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling"],
+          "object",
+          "type",
+          "index"
+        ],
+        "newlines-between": "always",
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "alphabetize": { "order": "asc", "caseInsensitive": true },
+        "pathGroups": [
+          // ここに書いた順序で間に1行空行をあけつつ整頓される
+          { "pattern": "@/libs/**", "group": "internal", "position": "before" },
+          { "pattern": "@/generated/**", "group": "internal", "position": "before" },
+          { "pattern": "@/components/page/**", "group": "internal", "position": "before" },
+          { "pattern": "@/components/ui/**", "group": "internal", "position": "before" },
+          { "pattern": "@/public/**", "group": "internal", "position": "before" },
+          // styles
+          // 最後尾にしたいのでgroupをindex扱いにする
+          { "pattern": "./**.module.css", "group": "index", "position": "before" },
+          { "pattern": "./**.css", "group": "index", "position": "before" },
+          { "pattern": "@/public/img/**", "group": "internal", "position": "before" },
+          { "pattern": "@/public/font/**", "group": "internal", "position": "before" }
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.stories.tsx", "src/pages/**/*"],
+      "rules": {
+        "import/no-default-export": "off"
+      }
+    },
+    {
+      "files": ["*.test.ts", "*.mock.ts"],
+      "rules": {
+        "max-lines": "off"
+      }
+    }
+  ]
+}
